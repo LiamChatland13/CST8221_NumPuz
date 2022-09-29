@@ -61,15 +61,20 @@ public class GameBasics extends JFrame {
         label.setBounds(150,0,200,50);
         menu.add(label);
         
+        //Adding Console text Area
+        JTextArea console = new JTextArea();
+        console.setBounds(50, 350, 250, 300);
+        menu.add(console);
+        
         //Adding time text area
         JTextArea timeV = new JTextArea("0");
-        timeV.setBounds(110, 685, 30, 15);
+        timeV.setBounds(190, 685, 30, 15);
         menu.add(timeV);
         
         //Adding Time label
         JLabel time = new JLabel("Time:");
         time.setForeground(Color.white);
-        time.setBounds(70,685,60,15);
+        time.setBounds(150,685,60,15);
         menu.add(time);
         
         //Adding reset button
