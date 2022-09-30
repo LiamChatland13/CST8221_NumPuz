@@ -8,6 +8,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
 public class GameBasics extends JFrame {
@@ -153,18 +155,18 @@ public class GameBasics extends JFrame {
         
         //Adding time text area
         JTextArea timeV = new JTextArea("0");
-        timeV.setBounds(155, 685, 100, 40);
+        timeV.setBounds(190, 700, 40, 20);
         menu.add(timeV);
         
         //Adding Time label
         JLabel time = new JLabel("Time:");
         time.setForeground(Color.white);
-        time.setBounds(110,695,60,15);
+        time.setBounds(140,700,60,15);
         menu.add(time);
         
         //Adding reset button
         JButton reset = new JButton("Reset");
-        reset.setBounds(155, 740, 100, 40);
+        reset.setBounds(155, 735, 70, 20);
         reset.setForeground(Color.black);
         menu.add(reset);
         
