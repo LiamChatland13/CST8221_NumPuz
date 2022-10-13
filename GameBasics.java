@@ -13,6 +13,11 @@ import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
 public class GameBasics extends JFrame {
+	public static final int HEIGHT = 800; 
+	public static final int WIDTH = 650;
+	
+	public static final JPanel Grid = new JPanel();
+	
 	GameBasics(){
 		setTitle("NumPuz");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -21,33 +26,8 @@ public class GameBasics extends JFrame {
         setBounds(100,100,1000,800);
         Container c = getContentPane();
         
-//-----------      Grid     ------------------------
-        //Creating Grid panel with grid a layout
-        JPanel Grid = new JPanel();
-        GridLayout grid = new GridLayout(3, 3);
-        Grid.setLayout(grid);
-        Grid.setBounds(0, 0, 650, 800);
-        
-        //Creating buttons for the Grid panel
-        JButton B1 = new JButton("1");
-        JButton B2 = new JButton("2");
-        JButton B3 = new JButton("3");
-        JButton B4 = new JButton("4");
-        JButton B5 = new JButton("5");
-        JButton B6 = new JButton("6");
-        JButton B7 = new JButton("7");
-        JButton B8 = new JButton("8");
-        
-        //Adding buttons to Grid panel
-        Grid.add(B1);
-        Grid.add(B2);
-        Grid.add(B3);
-        Grid.add(B4);
-        Grid.add(B5);
-        Grid.add(B6);
-        Grid.add(B7);
-        Grid.add(B8);
-//--------------------------------------------------
+
+
         
 //-----------      Menu     -------------------------
         //Creating a JPanel for the Menu
@@ -89,6 +69,7 @@ public class GameBasics extends JFrame {
         dim.setForeground(Color.black);
         dim.setBackground(Color.white);
         menu.add(dim);
+        dim.addActionListener(dim);
         
         //Adding Show and Hide buttons
         JButton show = new JButton("Show");
@@ -175,17 +156,82 @@ public class GameBasics extends JFrame {
         menu.setBounds(650,0,350,1000);
 //----------------------------------------------------
         
-        //adding the panel to the Container of the JFrame
-        c.add(menu);
-        c.add(Grid);
+        
        
+        dim.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String s = (String) dim.getSelectedItem();
+                switch (s) {
+                case "3":
+                	Grid.removeAll();
+                	Grid.revalidate();
+                	Grid.repaint();
+                	c.add(create_grid(3,3));;
+                	break;
+
+               case "4":
+               		Grid.removeAll();
+            	    Grid.revalidate();
+               	    Grid.repaint();
+            	    c.add(create_grid(4,4));
+                   	break;
+                   
+               case "5":
+               		Grid.removeAll();
+               		Grid.revalidate();
+               		Grid.repaint();
+            	    c.add(create_grid(5,5));
+                    break;
+                }
+            }
+        });
+    
+        
+       
+        
+      //adding the panel to the Container of the JFrame
+        c.add(menu);
         setVisible(true);
+
 	}
+	
+	
+//-----------      Grid     ----------------------------
+	public JPanel create_grid(int h, int w) {
+		//JPanel Grid = new JPanel();
+        GridLayout grid = new GridLayout(w, h);
+        Grid.setLayout(grid);
+        Grid.setBounds(0, 0, WIDTH, HEIGHT);
+        JButton[] buttons = new JButton[h*w];
+        String count;
+        for(int i=1;i<(h*w);i++)
+        {
+
+        	count = String.valueOf(i);
+
+           buttons[i]=new JButton();
+            buttons[i].setText(count);
+            buttons[i].setBackground(Color.LIGHT_GRAY);
+        }
+
+
+
+       for(int i=1;i<(h*w);i++)
+        {
+
+
+
+           Grid.add(buttons[i]);
+        }
+       return Grid;
+	}
+//--------------------------------------------------
+
 	
 
 	 public static void main(String[] args) {
 		 new GameBasics();
-	        
-	       
+		 
 	    }
 	}
