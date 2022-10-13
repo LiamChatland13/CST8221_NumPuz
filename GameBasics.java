@@ -16,6 +16,8 @@ public class GameBasics extends JFrame {
 	public static final int HEIGHT = 800; 
 	public static final int WIDTH = 650;
 	
+	public static final JPanel Grid = new JPanel();
+	
 	GameBasics(){
 		setTitle("NumPuz");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -191,16 +193,22 @@ public class GameBasics extends JFrame {
                 String s = (String) dim.getSelectedItem();
                 switch (s) {
                 case "3":
-                	create_grid(3,3);
+                	Grid.revalidate();
+                	Grid.repaint();
+                	c.add(create_grid(3,3));;
                 	break;
 
                case "4":
-            	   	create_grid(4,4);
+            	   Grid.revalidate();
+               	   Grid.repaint();
+            	   c.add(create_grid(4,4));
                    	break;
                    
                case "5":
-            	    create_grid(5,5);
-                   	break;
+            	   Grid.revalidate();
+               	   Grid.repaint();
+            	   c.add(create_grid(5,5));
+                   break;
                 }
             }
         });
@@ -210,13 +218,12 @@ public class GameBasics extends JFrame {
         
       //adding the panel to the Container of the JFrame
         c.add(menu);
-        c.add(Grid);
         setVisible(true);
 
 	}
 	
-	public int create_grid(int h, int w) {
-		JPanel Grid = new JPanel();
+	public JPanel create_grid(int h, int w) {
+		//JPanel Grid = new JPanel();
         GridLayout grid = new GridLayout(w, h);
         Grid.setLayout(grid);
         Grid.setBounds(0, 0, WIDTH, HEIGHT);
@@ -241,12 +248,11 @@ public class GameBasics extends JFrame {
 
            Grid.add(buttons[i]);
         }
-       return 0;
+       return Grid;
 	}
 
 	 public static void main(String[] args) {
 		 new GameBasics();
-	        
-	       
+		 
 	    }
 	}
