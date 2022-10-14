@@ -41,18 +41,18 @@ public class GameBasics extends JFrame {
         menu.add(label);
         
         //Adding Mode (Design or Play)
-        JRadioButton RB1 = new JRadioButton();
-        RB1.setBounds(135, 30, 120, 50);
-        RB1.setText("Design");
-        RB1.setForeground(Color.white);
-        RB1.setBackground(Color.black);
-        menu.add(RB1);
-        JRadioButton RB2 = new JRadioButton();
-        RB2.setBounds(250, 30, 80, 50);
-        RB2.setText("Play");
-        RB2.setForeground(Color.white);
-        RB2.setBackground(Color.black);
-        menu.add(RB2);
+        JRadioButton design = new JRadioButton();
+       design.setBounds(135, 30, 120, 50);
+       design.setText("Design");
+       design.setForeground(Color.white);
+       design.setBackground(Color.black);
+       menu.add(design);
+       JRadioButton play = new JRadioButton();
+       play.setBounds(250, 30, 80, 50);
+       play.setText("Play");
+       play.setForeground(Color.white);
+       play.setBackground(Color.black);
+        menu.add(play);
         JLabel lbl = new JLabel("Mode");
         lbl.setForeground(Color.white);
         lbl.setBounds(40, 30, 150, 50);
@@ -96,10 +96,10 @@ public class GameBasics extends JFrame {
         menu.add(rand);
         
         //Adding Type options
-        JLabel lbl3 = new JLabel("Type:");
-        lbl3.setForeground(Color.white);
-        lbl3.setBounds(40, 185, 150, 50);
-        menu.add(lbl3);
+        JLabel lType = new JLabel("Type:");
+        lType.setForeground(Color.white);
+        lType.setBounds(40, 185, 150, 50);
+        menu.add(lType);
         String t[] = {"Number", "Text"};
         JComboBox type = new JComboBox(t);
         type.setBounds(90, 190, 110, 40);
@@ -187,6 +187,7 @@ public class GameBasics extends JFrame {
             }
         });
     
+        
         
        
         
