@@ -9,10 +9,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-@SuppressWarnings( { "unused", "serial" })
+@SuppressWarnings("unused")
 
 
-public class GameModel extends GameView {
+public class GameModel {
 	//Declaring Grid dimensions & Grid
 	public static final int HEIGHT = 800; 
 	public static final int WIDTH = 650;
