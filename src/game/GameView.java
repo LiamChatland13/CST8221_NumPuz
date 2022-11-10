@@ -5,161 +5,182 @@ import java.awt.GridLayout;
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-@SuppressWarnings({ "unused", "serial" })
+@SuppressWarnings({ "unused", "serial", "rawtypes" })
 
 public class GameView extends JFrame{
 	
-	//creating container, Grid, Menu
+	//Declaring Container and both Panels
 	Container c = getContentPane();
-	JPanel Grid = new JPanel();
-    JPanel menu = new JPanel();
+	JPanel Grid, menu = new JPanel();
     
-    //Initializing all buttons
-    JLabel label = new JLabel("NUMPUZ");
-    JRadioButton design = new JRadioButton();
-    JRadioButton play = new JRadioButton();
-    JLabel lbl = new JLabel("Mode");
-    JLabel lbl2 = new JLabel("Dim:");
-	JComboBox<String> dim = new JComboBox<String>();
-    JButton show = new JButton("Show");
-    JButton hide = new JButton("Hide");
-    JButton save = new JButton("Save");
-    JButton load = new JButton("Load");
-    JButton rand = new JButton("Rand");
-    JLabel lType = new JLabel("Type:");
-    JComboBox<Object> type = new JComboBox<Object>();
-    JButton finish = new JButton("Finish");
-    JTextArea  move = new JTextArea();
-    JLabel moves = new JLabel("Moves:");
-    JTextArea point = new JTextArea();
-    JLabel points = new JLabel("Points:");
-    JTextArea console = new JTextArea();
-    JTextArea timeV = new JTextArea("0");
-    JLabel time = new JLabel("Time:");
-    JButton reset = new JButton("Reset");
-    //menu.setLayout(null);
-	GameView(){
-		setTitle("NumPuz");
+    //Declaring all Components
+    private JLabel label, lbl, lbl2, lType, moves, points, time;
+    private JRadioButton design, play;
+	private JComboBox dim, type;
+	private JButton show, hide, save, load, rand, finish, reset;
+	private JButton[] buttons;
+	private JTextArea move, point, console, timeV;
+	
+	//Declaring Grid dimensions & Grid
+	public static final int HEIGHT = 800; 
+	public static final int WIDTH = 650;
+	
+	
+    public void setup(){
+    	setTitle("NumPuz");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
         //setting the bounds for the JFrame
         setBounds(100,100,1000,800);
-		menu.setBackground(Color.black);
-        menu.setBounds(650,0,350,1000);
+        this.Grid = new JPanel();
+        this.menu.setLayout(null);
         
-      //Adding Mode (Design or Play)
-        this.design.setBounds(135, 30, 120, 50);
+        //Adding Title of the game to menu
+        JLabel label = new JLabel("NUMPUZ");
+        label.setForeground(Color.white);;
+        label.setBounds(150,0,300,50);
+        this.menu.add(label);
+        
+        //Adding Mode (Design or Play)
+        JRadioButton design = new JRadioButton();
+        design.setSelected(true);
+        design.setBounds(135, 30, 120, 50);
         design.setText("Design");
         design.setForeground(Color.white);
         design.setBackground(Color.black);
-        menu.add(design);
+
+      	JRadioButton play = new JRadioButton();
+      	play.setBounds(250, 30, 80, 50);
+      	play.setText("Play");
+      	play.setForeground(Color.white);
+      	play.setBackground(Color.black);
         
-        play.setBounds(250, 30, 80, 50);
-        play.setText("Play");
-        play.setForeground(Color.white);
-        play.setBackground(Color.black);
-        menu.add(play);
-         
-         
-        
-      //Adding Title of the game to menu
-        label.setForeground(Color.white);;
-        label.setBounds(150,0,300,50);
-        menu.add(label);
-        
+        ButtonGroup group = new ButtonGroup();
+        group.add(this.play);
+        group.add(this.design);
+
+        this.menu.add(play);
+      	this.menu.add(design);
+
+        JLabel lbl = new JLabel("Mode");
         lbl.setForeground(Color.white);
         lbl.setBounds(40, 30, 150, 50);
-        menu.add(lbl);
+        this.menu.add(lbl);
         
         //Adding dimension options
+        JLabel lbl2 = new JLabel("Dim:");
         lbl2.setForeground(Color.white);
         lbl2.setBounds(40, 85, 150, 50);
-        menu.add(lbl2);
-        //JComboBox dim = new JComboBox(d);
-        this.dim.setBounds(90, 90, 70, 40);
-        this.dim.setForeground(Color.black);
-        this.dim.setBackground(Color.white);
+        this.menu.add(lbl2);
+        
+        String d[] = {"3", "4", "5"};
+        dim = new JComboBox(d);
+        dim.setBounds(90, 90, 70, 40);
+        dim.setForeground(Color.black);
+        dim.setBackground(Color.white);
         this.menu.add(dim);
-        this.dim.addActionListener(dim);
+
         
         //Adding Show and Hide buttons
-        this.show.setBounds(170, 90, 70, 40);
+        JButton show = new JButton("Show");
+        show.setBounds(170, 90, 70, 40);
         show.setForeground(Color.black);
-        menu.add(show);
+        this.menu.add(show);
+        JButton hide = new JButton("Hide");
         hide.setBounds(250, 90, 70, 40);
         hide.setForeground(Color.black);
-        menu.add(hide);
+        this.menu.add(hide);
         
         //Adding Save, Load, and Rand buttons
+        JButton save = new JButton("Save");
         save.setBounds(90, 140, 70, 40);
         save.setForeground(Color.black);
-        menu.add(save);
+        this.menu.add(save);
+        JButton load = new JButton("Load");
         load.setBounds(170, 140, 70, 40);
         load.setForeground(Color.black);
-        menu.add(load);
+        this.menu.add(load);
+        JButton rand = new JButton("Rand");
         rand.setBounds(250, 140, 70, 40);
         rand.setForeground(Color.black);
-        menu.add(rand);
+        this.menu.add(rand);
         
         //Adding Type options
+        JLabel lType = new JLabel("Type:");
         lType.setForeground(Color.white);
         lType.setBounds(40, 185, 150, 50);
-        menu.add(lType);
+        this.menu.add(lType);
+        String t[] = {"Number", "Text"};
+        JComboBox type = new JComboBox(t);
         type.setBounds(90, 190, 110, 40);
         type.setForeground(Color.black);
         type.setBackground(Color.white);
-        menu.add(type);
+        this.menu.add(type);
         
         //Adding Finish button
+        JButton finish = new JButton("Finish");
         finish.setBounds(220, 190, 100, 40);
         finish.setForeground(Color.black);
-        menu.add(finish);
+        this.menu.add(finish);
         
         //Adding Moves and Points text areas
+        JTextArea  move = new JTextArea();
         move.setBounds(90, 240, 80, 40);
-        menu.add(move);
+        this.menu.add(move);
+        JLabel moves = new JLabel("Moves:");
         moves.setForeground(Color.white);
         moves.setBounds(30,250,60,15);
-        menu.add(moves);
+        this.menu.add(moves);
+        JTextArea point = new JTextArea();
         point.setBounds(240, 240, 80, 40);
-        menu.add(point);
+        this.menu.add(point);
+        JLabel points = new JLabel("Points:");
         points.setForeground(Color.white);
         points.setBounds(180,250,60,15);
-        menu.add(points);
+        this.menu.add(points);
     
         //Adding Console text Area
+        JTextArea console = new JTextArea();
         console.setBounds(70, 350, 250, 300);
-        menu.add(console);
+        this.menu.add(console);
         
         //Adding time text area
+        JTextArea timeV = new JTextArea("0");
         timeV.setBounds(190, 700, 40, 20);
-        menu.add(timeV);
+        this.menu.add(timeV);
         
         //Adding Time label
+        JLabel time = new JLabel("Time:");
         time.setForeground(Color.white);
         time.setBounds(140,700,60,15);
-        menu.add(time);
+        this.menu.add(time);
         
         //Adding reset button
+        JButton reset = new JButton("Reset");
         reset.setBounds(155, 735, 70, 20);
         reset.setForeground(Color.black);
-        menu.add(reset);
+        this.menu.add(reset);
         
         // changing the background color of the panel to yellow
-        menu.setBackground(Color.black);
-        menu.setBounds(650,0,350,1000);
-        //this.add(c);
-        c.add(menu);
-        setVisible(true);       
-	}
+        this.menu.setBackground(Color.black);
+        this.menu.setBounds(650,0,350,1000); 
+   
+        c.add(this.menu);
+        setVisible(true);
+    }
+    
+
 	
-	public Container createContainer() {
+	/*public void test() {
 		
-              
+		//Initializing the Grid and Menu JPanels
+        Grid = new JPanel();
+        menu = new JPanel();
+        
+        
       //-----------      Menu     -------------------------
         
         
-        //Adding Title of the game to menu
         JLabel label = new JLabel("NUMPUZ");
         label.setForeground(Color.white);;
         label.setBounds(150,0,300,50);
@@ -281,18 +302,23 @@ public class GameView extends JFrame{
 //----------------------------------------------------
          
       //adding the panel to the Container of the JFrame
+        
         c.add(menu);
         setVisible(true);
-		return c;
-	}
+	}*/
 	
 	
-	
+	/**
+	 * Method to create the grid for the Grid JPanel using dimension parameters h & w
+	 * @param h
+	 * @param w
+	 * @return Grid
+	 */
 	public JPanel createGrid(int h, int w) {
 		GridLayout layout = new GridLayout(w, h);
-        Grid.setLayout(layout);
-        Grid.setBounds(0, 0, WIDTH, HEIGHT);
-        JButton[] buttons = new JButton[h*w];
+        this.Grid.setLayout(layout);
+        this.Grid.setBounds(0, 0, WIDTH, HEIGHT);
+        buttons = new JButton[h*w];
         String count;
         for(int i=1;i<(h*w);i++)
         {
@@ -307,19 +333,55 @@ public class GameView extends JFrame{
 
        for(int i=1;i<(h*w);i++)
         {
-           Grid.add(buttons[i]);
+           this.Grid.add(buttons[i]);
         }
-       	c.add(Grid);
-		return Grid;
-	}	
+       	//c.add(Grid);
+		return this.Grid;
+	}
 	
-	public void initButtons(ActionListener actionListener) {
-		String d[] = {"3", "4", "5"};
-		JComboBox dim = new JComboBox();
-		dim.setBounds(90, 90, 70, 40);
-        dim.setForeground(Color.black);
-        dim.setBackground(Color.white);
-        dim.addActionListener(actionListener);
-        menu.add(dim);
+	
+	/**
+	 * Adds action Listener from Controller to the Dim component
+	 * @param actionListener
+	 */
+	public void initDim(ActionListener actionListener) {
+        this.dim.addActionListener(actionListener);
+        
+	}
+	
+	public void initMode(ActionListener actionListener) {
+        this.play.addActionListener(actionListener);
+        this.design.addActionListener(actionListener);
+	}
+	
+	
+	/**
+	 * Updates the grid with the value selected by the dim component
+	 */
+	public int updateGrid() {
+		String s = (String) dim.getSelectedItem();
+		  switch (s) {
+          case "3":
+          	Grid.removeAll();
+          	Grid.revalidate();
+          	Grid.repaint();
+          	this.c.add(createGrid(3,3));;
+          	break;
+
+         case "4":
+         		Grid.removeAll();
+      	    Grid.revalidate();
+         	    Grid.repaint();
+      	    this.c.add(createGrid(4,4));
+             	break;
+             
+         case "5":
+         		Grid.removeAll();
+         		Grid.revalidate();
+         		Grid.repaint();
+      	    this.c.add(createGrid(5,5));
+              break;
+          }
+		  return Integer.parseInt(s);
 	}
 }

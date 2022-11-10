@@ -13,7 +13,34 @@ import java.awt.event.ActionEvent;
 
 
 public class GameModel {
-	//Declaring Grid dimensions & Grid
-	public static final int HEIGHT = 800; 
-	public static final int WIDTH = 650;
+	
+	private String configStr;
+	private int dim;
+	private int[][] board;
+	
+	public void setConfigStr(String config) {
+		this.configStr = config;
+	}
+	
+	public void setDim(int dim) {
+		this.dim = dim;
+	}
+	
+	public void setBoard() {
+		int[][] b = new int[getDim()][getDim()];
+		this.board = b;
+	}
+	
+	public String getConfigStr() {
+		return configStr;
+	}
+	
+	public int getDim() {
+		return dim;
+	}
+	
+	public int[][] getBoard() {
+		return board;
+	}
+	
 }

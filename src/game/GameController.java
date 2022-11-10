@@ -15,49 +15,41 @@ import game.GameView;
 public class GameController{
 	private GameView view; 
 	private GameModel model;
-	//GameView view = new GameView();
+
 	GameController(GameView view, GameModel model){
 		this.view = view;
 		this.model = model;
+		view.setup();
 		this.initViewActionListeners();
 	}
-	 private void initViewActionListeners()
-	    {
-	        view.initButtons(new DimListener());
+	
+	/**
+	 * Calls initButtons to provide them with their action Listener
+	 */
+	 private void initViewActionListeners(){
+	        view.initDim(new dimlistener());
 	    }
 	
-	
-	public class DimListener implements ActionListener
-    {
+	/**
+	 * Calls updateGrid from View when Dim is selected
+	 * @author liamc & Youssef
+	 *
+	 */
+	public class dimlistener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e)
         {
-        	view.createGrid(3,3);
-    		       	/**String s = (String) dim.getSelectedItem();
-    		        switch (s) {
-    		        case "3":
-    		        	Grid.removeAll();
-    		        	Grid.revalidate();
-    		        	Grid.repaint();
-    		        	c.add(createGrid(3,3));
-    		        	break;
-
-    		       case "4":
-    		       		Grid.removeAll();
-    		    	    Grid.revalidate();
-    		       	    Grid.repaint();
-    		    	    c.add(createGrid(4,4));
-    		           	break;
-    		           
-    		       case "5":
-    		       		Grid.removeAll();
-    		       		Grid.revalidate();
-    		       		Grid.repaint();
-    		    	    c.add(createGrid(5,5));
-    		            break;
-    		        }*/
+        	model.setDim(view.updateGrid());
+        	model.setBoard();
     		    }
     		
-    		/////////////////////////////////////////////////////////
+        }
+	
+	public class modelistener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e){
+        	view.mode();
+    		    }
+    		
         }
     }
