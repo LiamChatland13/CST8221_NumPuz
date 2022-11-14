@@ -28,6 +28,8 @@ public class GameController{
 	 */
 	 private void initViewActionListeners(){
 	        view.initDim(new dimlistener());
+	        view.initMode(new modeListener());
+	        view.initrand(new randListener());
 	    }
 	
 	/**
@@ -39,17 +41,29 @@ public class GameController{
         @Override
         public void actionPerformed(ActionEvent e)
         {
+        	if(model.getMode()==true)
+        		return;
         	model.setDim(view.updateGrid());
         	model.setBoard();
+        	//System.out.println(model.getDim());
     		    }
     		
         }
 	
-	public class modelistener implements ActionListener{
+	public class modeListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e){
-        	view.mode();
-    		    }
+        	model.setMode(view.mode());
+        	System.out.println(model.getMode());
+        }
+    		
+        }
+	
+	public class randListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e){
+        	view.rand(model.getDim());
+        }
     		
         }
     }

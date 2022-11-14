@@ -14,9 +14,14 @@ import java.awt.event.ActionEvent;
 
 public class GameModel {
 	
+	private boolean mode;
 	private String configStr;
 	private int dim;
 	private int[][] board;
+	
+	public void setMode(boolean mode) {
+		this.mode = mode;
+	}
 	
 	public void setConfigStr(String config) {
 		this.configStr = config;
@@ -31,16 +36,20 @@ public class GameModel {
 		this.board = b;
 	}
 	
+	public boolean getMode() {
+		return this.mode;
+	}
+	
 	public String getConfigStr() {
-		return configStr;
+		return this.configStr;
 	}
 	
 	public int getDim() {
-		return dim;
+		return this.dim;
 	}
 	
 	public int[][] getBoard() {
-		return board;
+		return this.board;
 	}
 	
 }
