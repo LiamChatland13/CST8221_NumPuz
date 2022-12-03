@@ -19,6 +19,7 @@ public class GameController{
 	GameController(GameView view, GameModel model){
 		this.view = view;
 		this.model = model;
+		model.setDim(3);
 		view.setup();
 		this.initViewActionListeners();
 	}

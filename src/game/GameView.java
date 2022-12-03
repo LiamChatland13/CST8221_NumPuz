@@ -17,6 +17,7 @@ public class GameView extends JFrame{
     
     //Declaring all Components
     private JLabel label, lbl, lbl2, lType, moves, points, time, input1;
+    private JLabel[] butLabel;
     private JRadioButton design, play;
 	private JComboBox dim, type;
 	private JButton show, hide, save, load, rand, finish, reset;
@@ -193,35 +194,66 @@ public class GameView extends JFrame{
 		GridLayout layout = new GridLayout(w, h);
         this.Grid.setLayout(layout);
         this.Grid.setBounds(0, 0, WIDTH, HEIGHT);
-        buttons = new JButton[h*w];
+        this.buttons = new JButton[(h*w)+1];
+        butLabel = new JLabel[h*w];
         String count;
-        for(int i=1;i<(h*w);i++)
-        {
-
-           count = String.valueOf(i);
-
-           buttons[i]=new JButton();
-           buttons[i].setText(count);
-           buttons[i].setBackground(Color.LIGHT_GRAY);
+        
+        //creates buttons
+        for(int i=0;i<((h*w)+1);i++){
+           this.buttons[i]=new JButton();
+           this.buttons[i].setBackground(Color.LIGHT_GRAY);
+        }
+        
+        //adds labels to buttons
+        for(int i=0;i<((h*w));i++) {
+            this.butLabel[i]=new JLabel();
+            count = String.valueOf(i);
+            JLabel num = new JLabel(count);
+            this.butLabel[i].add(num);
+            this.buttons[i].add(num);
         }
 
-
-       for(int i=1;i<(h*w);i++)
-        {
+        //adds buttons to grid
+       	for(int i=1;i<((h*w)+1);i++){
            this.Grid.add(buttons[i]);
         }
 		return this.Grid;
 	}
 	
+
+	/*public void rand(int d) {
+		this.Grid.removeAll();
+      	this.Grid.revalidate();
+      	this.Grid.repaint();
+        Collections.shuffle(Arrays.asList(this.butLabel));
+		GridLayout layout = new GridLayout(d, d);
+        this.Grid.setLayout(layout);
+        this.Grid.setBounds(0, 0, WIDTH, HEIGHT);
+        String count;
+        
+      //adds labels to buttons
+        for(int i=0;i<((d*d));i++) {
+            count = String.valueOf(i);
+            JLabel num = new JLabel(count);
+            this.buttons[i].add(num);
+        }
+        
+        //adds buttons to grid
+       	for(int i=1;i<((d*d)+1);i++){
+           this.Grid.add(buttons[i]);
+        }
+      	this.c.add(this.Grid);
+	}*/
+	
 	public void rand(int d) {
 		this.Grid.removeAll();
       	this.Grid.revalidate();
       	this.Grid.repaint();
-        Collections.shuffle(Arrays.asList(buttons));
+        Collections.shuffle(Arrays.asList(this.buttons));
         GridLayout layout = new GridLayout(d, d);
         this.Grid.setLayout(layout);
         this.Grid.setBounds(0, 0, WIDTH, HEIGHT);
-        for(int i=1;i<(d*d);i++)
+        for(int i=1;i<((d*d)+1);i++)
         {
            this.Grid.add(buttons[i]);
         }
